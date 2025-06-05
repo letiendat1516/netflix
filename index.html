@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>★ NETFLIX Premium Services ★</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
       * {
           margin: 0;
@@ -13,37 +14,95 @@
 
       body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
           min-height: 100vh;
           color: #333;
+          overflow-x: hidden;
+      }
+
+      /* Animated background particles */
+      .particles {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          overflow: hidden;
+      }
+
+      .particle {
+          position: absolute;
+          background: rgba(229, 9, 20, 0.1);
+          border-radius: 50%;
+          animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+          50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
       }
 
       .container {
           max-width: 1200px;
           margin: 0 auto;
           padding: 20px;
+          position: relative;
+          z-index: 1;
       }
 
       .header {
           text-align: center;
           margin-bottom: 40px;
-          background: rgba(255, 255, 255, 0.95);
-          padding: 30px;
-          border-radius: 20px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          background: rgba(255, 255, 255, 0.98);
+          padding: 40px;
+          border-radius: 25px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(10px);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .header::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg, transparent, rgba(229, 9, 20, 0.1), transparent);
+          animation: shine 3s linear infinite;
+      }
+
+      @keyframes shine {
+          0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+          100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
       }
 
       .header h1 {
-          font-size: 2.5em;
-          color: #e50914;
-          margin-bottom: 10px;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+          font-size: 3em;
+          background: linear-gradient(45deg, #e50914, #ff6b6b, #e50914);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 15px;
+          text-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+          animation: glow 2s ease-in-out infinite alternate;
+          position: relative;
+          z-index: 2;
+      }
+
+      @keyframes glow {
+          from { filter: drop-shadow(0 0 5px rgba(229, 9, 20, 0.5)); }
+          to { filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.8)); }
       }
 
       .header .subtitle {
-          font-size: 1.2em;
+          font-size: 1.3em;
           color: #666;
           font-weight: 300;
+          position: relative;
+          z-index: 2;
       }
 
       .main-content {
@@ -55,44 +114,99 @@
 
       .card {
           background: rgba(255, 255, 255, 0.95);
-          padding: 30px;
-          border-radius: 15px;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          padding: 35px;
+          border-radius: 20px;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(229, 9, 20, 0.1), transparent);
+          transition: left 0.5s;
+      }
+
+      .card:hover::before {
+          left: 100%;
       }
 
       .card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+          transform: translateY(-10px) scale(1.02);
+          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
       }
 
       .card h2 {
           color: #e50914;
-          margin-bottom: 20px;
-          font-size: 1.8em;
-          border-bottom: 2px solid #e50914;
-          padding-bottom: 10px;
+          margin-bottom: 25px;
+          font-size: 2em;
+          border-bottom: 3px solid #e50914;
+          padding-bottom: 15px;
+          position: relative;
+      }
+
+      .card h2 i {
+          margin-right: 10px;
+          animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+          40% { transform: translateY(-10px); }
+          60% { transform: translateY(-5px); }
       }
 
       .pricing-table {
-          margin: 20px 0;
+          margin: 25px 0;
       }
 
       .price-item {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 15px;
-          margin: 10px 0;
-          background: linear-gradient(90deg, #f8f9fa, #e9ecef);
-          border-radius: 10px;
-          border-left: 4px solid #e50914;
-          transition: all 0.3s ease;
+          padding: 20px;
+          margin: 15px 0;
+          background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+          border-radius: 15px;
+          border-left: 5px solid #e50914;
+          transition: all 0.4s ease;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+      }
+
+      .price-item::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 100%;
+          background: linear-gradient(135deg, #e50914, #ff6b6b);
+          transition: width 0.4s ease;
+          z-index: 1;
+      }
+
+      .price-item:hover::before {
+          width: 100%;
       }
 
       .price-item:hover {
-          background: linear-gradient(90deg, #e9ecef, #dee2e6);
-          transform: translateX(5px);
+          transform: translateX(10px) scale(1.05);
+          color: white;
+          box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+      }
+
+      .price-item span {
+          position: relative;
+          z-index: 2;
+          transition: color 0.3s ease;
       }
 
       .price-duration {
@@ -101,51 +215,200 @@
       }
 
       .price-amount {
-          font-size: 1.3em;
+          font-size: 1.5em;
           font-weight: bold;
           color: #e50914;
+      }
+
+      /* Payment Section Styles */
+      .payment-section {
+          background: linear-gradient(135deg, #2c3e50, #34495e);
+          color: white;
+          padding: 40px;
+          border-radius: 20px;
+          margin: 30px 0;
+          box-shadow: 0 15px 35px rgba(44, 62, 80, 0.4);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .payment-section::before {
+          content: '₿';
+          position: absolute;
+          font-size: 15em;
+          opacity: 0.05;
+          top: -50px;
+          right: -50px;
+          animation: rotate 30s linear infinite;
+      }
+
+      .payment-section h3 {
+          font-size: 2.2em;
+          margin-bottom: 25px;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+      }
+
+      .ltc-address {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 20px;
+          border-radius: 15px;
+          margin: 20px 0;
+          text-align: center;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          position: relative;
+          z-index: 2;
+      }
+
+      .ltc-address-text {
+          font-family: 'Courier New', monospace;
+          font-size: 1.1em;
+          font-weight: bold;
+          color: #f39c12;
+          word-break: break-all;
+          margin: 10px 0;
+          padding: 15px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          border: 1px solid #f39c12;
+      }
+
+      .copy-btn {
+          background: linear-gradient(45deg, #f39c12, #e67e22);
+          color: white;
+          border: none;
+          padding: 12px 25px;
+          border-radius: 25px;
+          cursor: pointer;
+          font-weight: bold;
+          margin: 10px;
+          transition: all 0.3s ease;
+          box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+      }
+
+      .copy-btn:hover {
+          background: linear-gradient(45deg, #e67e22, #d35400);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+      }
+
+      .payment-notice {
+          background: rgba(231, 76, 60, 0.1);
+          border: 2px solid #e74c3c;
+          padding: 25px;
+          border-radius: 15px;
+          margin: 25px 0;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+      }
+
+      .payment-notice h4 {
+          color: #e74c3c;
+          font-size: 1.5em;
+          margin-bottom: 15px;
+      }
+
+      .payment-notice p {
+          font-size: 1.1em;
+          line-height: 1.6;
+          color: #ecf0f1;
+      }
+
+      .qr-code {
+          text-align: center;
+          margin: 25px 0;
+          position: relative;
+          z-index: 2;
+      }
+
+      .qr-code img {
+          max-width: 200px;
+          height: auto;
+          border-radius: 15px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+          background: white;
+          padding: 15px;
       }
 
       .contact-info {
           background: linear-gradient(135deg, #667eea, #764ba2);
           color: white;
           text-align: center;
-          padding: 25px;
-          border-radius: 15px;
-          margin: 20px 0;
+          padding: 35px;
+          border-radius: 20px;
+          margin: 25px 0;
+          position: relative;
+          overflow: hidden;
+      }
+
+      .contact-info::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+          animation: rotate 10s linear infinite;
+      }
+
+      @keyframes rotate {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
       }
 
       .telegram-btn {
           display: inline-block;
-          background: #0088cc;
+          background: linear-gradient(45deg, #0088cc, #00aaff);
           color: white;
-          padding: 15px 30px;
+          padding: 18px 35px;
           text-decoration: none;
-          border-radius: 25px;
+          border-radius: 30px;
           font-weight: bold;
-          margin: 10px;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+          margin: 15px;
+          transition: all 0.4s ease;
+          box-shadow: 0 8px 25px rgba(0, 136, 204, 0.4);
+          position: relative;
+          z-index: 2;
+          overflow: hidden;
+      }
+
+      .telegram-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.5s;
+      }
+
+      .telegram-btn:hover::before {
+          left: 100%;
       }
 
       .telegram-btn:hover {
-          background: #006699;
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+          background: linear-gradient(45deg, #006699, #0088cc);
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 12px 35px rgba(0, 136, 204, 0.6);
       }
 
       .features {
           background: rgba(255, 255, 255, 0.95);
-          padding: 30px;
-          border-radius: 15px;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-          margin: 20px 0;
+          padding: 35px;
+          border-radius: 20px;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+          margin: 25px 0;
+          position: relative;
       }
 
       .features h3 {
           color: #e50914;
-          margin-bottom: 15px;
-          font-size: 1.5em;
+          margin-bottom: 20px;
+          font-size: 1.6em;
       }
 
       .feature-list {
@@ -153,65 +416,162 @@
       }
 
       .feature-list li {
-          padding: 10px 0;
+          padding: 15px 0;
           border-bottom: 1px solid #eee;
           position: relative;
-          padding-left: 30px;
+          padding-left: 40px;
+          transition: all 0.3s ease;
+      }
+
+      .feature-list li:hover {
+          background: rgba(229, 9, 20, 0.05);
+          padding-left: 50px;
       }
 
       .feature-list li:before {
           content: "✓";
           color: #28a745;
           font-weight: bold;
+          font-size: 1.2em;
           position: absolute;
           left: 0;
-          top: 10px;
+          top: 15px;
+          width: 30px;
+          height: 30px;
+          background: rgba(40, 167, 69, 0.1);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
       }
 
       .bulk-offer {
           background: linear-gradient(135deg, #28a745, #20c997);
           color: white;
-          padding: 25px;
-          border-radius: 15px;
+          padding: 35px;
+          border-radius: 20px;
           text-align: center;
-          margin: 20px 0;
-          box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+          margin: 25px 0;
+          box-shadow: 0 15px 35px rgba(40, 167, 69, 0.4);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .bulk-offer::before {
+          content: '💰';
+          position: absolute;
+          font-size: 10em;
+          opacity: 0.1;
+          top: -20px;
+          right: -20px;
+          animation: float 6s ease-in-out infinite;
       }
 
       .bulk-offer h3 {
-          margin-bottom: 15px;
-          font-size: 1.8em;
+          margin-bottom: 20px;
+          font-size: 2em;
+          position: relative;
+          z-index: 2;
       }
 
       .checker-section {
           background: linear-gradient(135deg, #fd7e14, #e63946);
           color: white;
-          padding: 30px;
-          border-radius: 15px;
+          padding: 40px;
+          border-radius: 20px;
           text-align: center;
-          margin: 20px 0;
-          box-shadow: 0 8px 25px rgba(253, 126, 20, 0.3);
+          margin: 25px 0;
+          box-shadow: 0 15px 35px rgba(253, 126, 20, 0.4);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .checker-section::before {
+          content: '🔧';
+          position: absolute;
+          font-size: 12em;
+          opacity: 0.1;
+          top: -30px;
+          left: -30px;
+          animation: rotate 20s linear infinite;
       }
 
       .checker-section h3 {
-          margin-bottom: 15px;
-          font-size: 2em;
+          margin-bottom: 20px;
+          font-size: 2.2em;
+          position: relative;
+          z-index: 2;
       }
 
       .price-highlight {
-          font-size: 2.5em;
+          font-size: 3em;
           font-weight: bold;
-          margin: 15px 0;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+          margin: 20px 0;
+          text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+          animation: glow 2s ease-in-out infinite alternate;
+          position: relative;
+          z-index: 2;
       }
 
       .footer {
           text-align: center;
-          padding: 30px;
-          background: rgba(255, 255, 255, 0.95);
-          border-radius: 15px;
+          padding: 40px;
+          background: rgba(255, 255, 255, 0.98);
+          border-radius: 20px;
           margin-top: 40px;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .footer::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(229, 9, 20, 0.05), transparent);
+          animation: slide 3s ease-in-out infinite;
+      }
+
+      @keyframes slide {
+          0% { left: -100%; }
+          50% { left: 100%; }
+          100% { left: 100%; }
+      }
+
+      /* Floating action button */
+      .fab {
+          position: fixed;
+          bottom: 30px;
+          right: 30px;
+          width: 60px;
+          height: 60px;
+          background: linear-gradient(45deg, #e50914, #ff6b6b);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.5em;
+          box-shadow: 0 8px 25px rgba(229, 9, 20, 0.4);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          z-index: 1000;
+          animation: bounce 2s infinite;
+      }
+
+      .fab:hover {
+          transform: scale(1.1);
+          box-shadow: 0 12px 35px rgba(229, 9, 20, 0.6);
       }
 
       @media (max-width: 768px) {
@@ -220,57 +580,104 @@
           }
           
           .header h1 {
-              font-size: 2em;
+              font-size: 2.2em;
           }
           
           .card {
-              padding: 20px;
+              padding: 25px;
+          }
+
+          .fab {
+              bottom: 20px;
+              right: 20px;
+              width: 50px;
+              height: 50px;
+          }
+
+          .ltc-address-text {
+              font-size: 0.9em;
+          }
+
+          .payment-section {
+              padding: 25px;
           }
       }
 
-      .warning {
-          background: #fff3cd;
-          border: 1px solid #ffeaa7;
-          color: #856404;
-          padding: 15px;
-          border-radius: 10px;
-          margin: 20px 0;
-          text-align: center;
+      /* Loading animation */
+      .loading {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #0f0f23, #1a1a2e);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          transition: opacity 0.5s ease;
+      }
+
+      .loading-spinner {
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(229, 9, 20, 0.3);
+          border-top: 3px solid #e50914;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
       }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+      <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Floating Action Button -->
+  <div class="fab" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+  </div>
+
   <div class="container">
       <div class="header">
-          <h1>★ NETFLIX Premium Account Services ★</h1>
-          <p class="subtitle">Premium Quality • Instant Delivery • 24/7 Support</p>
+          <h1><i class="fas fa-crown"></i> NETFLIX Premium Account Services <i class="fas fa-crown"></i></h1>
+          <p class="subtitle">Premium Quality • Instant Delivery • 24/7 Support • Auto Warranty</p>
       </div>
 
       <div class="main-content">
           <div class="card">
-              <h2>🎬 Premium Accounts</h2>
+              <h2><i class="fas fa-play-circle"></i> Premium Accounts</h2>
               <div class="pricing-table">
-                  <div class="price-item">
-                      <span class="price-duration">1 Month</span>
+                  <div class="price-item" onclick="selectPlan(this)">
+                      <span class="price-duration"><i class="fas fa-calendar-alt"></i> 1 Month Premium</span>
                       <span class="price-amount">$3</span>
                   </div>
-                  <div class="price-item">
-                      <span class="price-duration">3 Months</span>
+                  <div class="price-item" onclick="selectPlan(this)">
+                      <span class="price-duration"><i class="fas fa-calendar-alt"></i> 3 Months Premium</span>
                       <span class="price-amount">$8</span>
                   </div>
-                  <div class="price-item">
-                      <span class="price-duration">6 Months</span>
+                  <div class="price-item" onclick="selectPlan(this)">
+                      <span class="price-duration"><i class="fas fa-calendar-alt"></i> 6 Months Premium</span>
                       <span class="price-amount">$15</span>
                   </div>
-                  <div class="price-item">
-                      <span class="price-duration">1 Year</span>
+                  <div class="price-item" onclick="selectPlan(this)">
+                      <span class="price-duration"><i class="fas fa-calendar-alt"></i> 1 Year Premium</span>
                       <span class="price-amount">$28</span>
                   </div>
               </div>
           </div>
 
           <div class="card">
-              <h2>🤖 Auto Warranty Bot</h2>
+              <h2><i class="fas fa-robot"></i> Auto Warranty Bot</h2>
               <div class="features">
                   <ul class="feature-list">
                       <li>Automatic replacement system</li>
@@ -278,76 +685,356 @@
                       <li>24/7 automated support</li>
                       <li>Instant account delivery</li>
                       <li>Premium quality guaranteed</li>
+                      <li>Multiple device support</li>
+                      <li>4K Ultra HD streaming</li>
+                      <li>Download for offline viewing</li>
                   </ul>
               </div>
           </div>
       </div>
 
+      <!-- Payment Section -->
+      <div class="payment-section">
+          <h3><i class="fab fa-bitcoin"></i> Payment Method - Litecoin (LTC)</h3>
+          
+          <div class="qr-code">
+              <p><strong>Scan QR Code to Pay:</strong></p>
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=MRAuFatDDmsNiBdtQTUeymGDWN9YZrTsdq" alt="LTC QR Code">
+          </div>
+
+          <div class="ltc-address">
+              <p><strong><i class="fas fa-wallet"></i> LTC Wallet Address:</strong></p>
+              <div class="ltc-address-text" id="ltcAddress">
+                  MRAuFatDDmsNiBdtQTUeymGDWN9YZrTsdq
+              </div>
+              <button class="copy-btn" onclick="copyAddress()">
+                  <i class="fas fa-copy"></i> Copy Address
+              </button>
+          </div>
+
+          <div class="payment-notice">
+              <h4><i class="fas fa-exclamation-triangle"></i> IMPORTANT PAYMENT NOTICE</h4>
+              <p><strong>If you really want to buy, please pay first and send the bill with hash code to me via Telegram.</strong></p>
+              <p>After payment, please provide:</p>
+              <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                  <li>✓ Payment screenshot/bill</li>
+                  <li>✓ Transaction hash code</li>
+                  <li>✓ Your selected plan</li>
+              </ul>
+              <p><strong>No payment = No service</strong></p>
+          </div>
+      </div>
+
       <div class="contact-info">
-          <h3>📞 Contact Information</h3>
-          <p>Get in touch for instant service</p>
+          <h3><i class="fas fa-headset"></i> Contact Information</h3>
+          <p>Get in touch for instant service and premium support</p>
           <a href="https://t.me/letiendatjqka" class="telegram-btn">
-              📱 Contact on Telegram
+              <i class="fab fa-telegram-plane"></i> Contact on Telegram
           </a>
+          <p style="margin-top: 15px; font-size: 1.1em;">
+              <strong>Send payment proof + hash code to receive your account instantly!</strong>
+          </p>
       </div>
 
       <div class="bulk-offer">
-          <h3>💰 Bulk Purchase Special</h3>
+          <h3><i class="fas fa-shopping-cart"></i> Bulk Purchase Special</h3>
           <p><strong>Minimum 20 accounts</strong></p>
-          <p><strong>24 Hour Warranty</strong></p>
+          <p><strong>24 Hour Warranty Included</strong></p>
           <div class="price-highlight">$0.3 per account</div>
           <p>Perfect for resellers and businesses</p>
+          <p><i class="fas fa-star"></i> Most Popular Choice <i class="fas fa-star"></i></p>
       </div>
 
       <div class="checker-section">
-          <h3>🔧 NETFLIX CHECKER TOOL</h3>
-          <p><strong>Selenium Method • Fresh Hits</strong></p>
-          <p>No Captcha Solver Required</p>
-          <p>Full Source Code Included</p>
+          <h3><i class="fas fa-tools"></i> NETFLIX CHECKER TOOL</h3>
+          <p><strong>Selenium Method • Fresh Hits Daily</strong></p>
+          <p><i class="fas fa-shield-alt"></i> No Captcha Solver Required</p>
+          <p><i class="fas fa-code"></i> Full Source Code Included</p>
+          <p><i class="fas fa-rocket"></i> High Success Rate</p>
           <div class="price-highlight">$300</div>
-          <p>Professional grade checking tool</p>
-      </div>
-
-      <div class="warning">
-          <strong>⚠️ Disclaimer:</strong> This service is for educational and testing purposes only. 
-          Please ensure compliance with Netflix's terms of service and local laws.
+          <p>Professional grade checking tool for developers</p>
       </div>
 
       <div class="footer">
-          <h3>🌟 Why Choose Our Service?</h3>
-          <p>✓ Instant Delivery • ✓ 24/7 Support • ✓ Auto Warranty • ✓ Best Prices</p>
+          <h3><i class="fas fa-star"></i> Why Choose Our Service?</h3>
+          <p>✓ Instant Delivery • ✓ 24/7 Support • ✓ Auto Warranty • ✓ Best Prices • ✓ Secure Payment</p>
           <p><strong>Trusted by thousands of customers worldwide</strong></p>
+          <p><i class="fas fa-users"></i> 10,000+ Happy Customers • <i class="fas fa-award"></i> 5-Star Rating</p>
       </div>
   </div>
 
   <script>
-      // Add some interactive effects
-      document.addEventListener('DOMContentLoaded', function() {
-          const cards = document.querySelectorAll('.card');
+      // Loading screen
+      window.addEventListener('load', function() {
+          setTimeout(() => {
+              document.getElementById('loading').style.opacity = '0';
+              setTimeout(() => {
+                  document.getElementById('loading').style.display = 'none';
+              }, 500);
+          }, 1000);
+      });
+
+      // Create animated particles
+      function createParticles() {
+          const particlesContainer = document.getElementById('particles');
+          const particleCount = 50;
+
+          for (let i = 0; i < particleCount; i++) {
+              const particle = document.createElement('div');
+              particle.className = 'particle';
+              particle.style.left = Math.random() * 100 + '%';
+              particle.style.top = Math.random() * 100 + '%';
+              particle.style.width = Math.random() * 4 + 2 + 'px';
+              particle.style.height = particle.style.width;
+              particle.style.animationDelay = Math.random() * 6 + 's';
+              particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+              particlesContainer.appendChild(particle);
+          }
+      }
+
+      // Copy LTC address function
+      function copyAddress() {
+          const address = document.getElementById('ltcAddress').textContent;
+          navigator.clipboard.writeText(address).then(function() {
+              const btn = document.querySelector('.copy-btn');
+              const originalText = btn.innerHTML;
+              btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+              btn.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+              
+              setTimeout(() => {
+                  btn.innerHTML = originalText;
+                  btn.style.background = 'linear-gradient(45deg, #f39c12, #e67e22)';
+              }, 2000);
+          }).catch(function(err) {
+              console.error('Could not copy text: ', err);
+              // Fallback for older browsers
+              const textArea = document.createElement('textarea');
+              textArea.value = address;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              
+              const btn = document.querySelector('.copy-btn');
+              const originalText = btn.innerHTML;
+              btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+              btn.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+              
+              setTimeout(() => {
+                  btn.innerHTML = originalText;
+                  btn.style.background = 'linear-gradient(45deg, #f39c12, #e67e22)';
+              }, 2000);
+          });
+      }
+
+      // Select plan function
+      function selectPlan(element) {
+          // Remove previous selection
+          document.querySelectorAll('.price-item').forEach(item => {
+              item.classList.remove('selected');
+          });
           
+          // Add selection to clicked item
+          element.classList.add('selected');
+          
+          // Add some visual feedback
+          element.style.transform = 'translateX(15px) scale(1.08)';
+          setTimeout(() => {
+              element.style.transform = '';
+          }, 300);
+          
+          // Get selected plan details
+          const duration = element.querySelector('.price-duration').textContent;
+          const amount = element.querySelector('.price-amount').textContent;
+          
+          // Show selection feedback
+          const notification = document.createElement('div');
+          notification.innerHTML = `
+              <div style="position: fixed; top: 20px; right: 20px; background: linear-gradient(45deg, #28a745, #20c997); color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4); z-index: 10000; animation: slideIn 0.5s ease;">
+                  <i class="fas fa-check-circle"></i> Selected: ${duration} - ${amount}
+              </div>
+          `;
+          document.body.appendChild(notification);
+          
+          setTimeout(() => {
+              notification.remove();
+          }, 3000);
+      }
+
+      // Scroll to top function
+      function scrollToTop() {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      }
+
+      // Initialize particles when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+          createParticles();
+          
+          // Add hover effects to cards
+          const cards = document.querySelectorAll('.card');
           cards.forEach(card => {
               card.addEventListener('mouseenter', function() {
-                  this.style.transform = 'translateY(-10px) scale(1.02)';
+                  this.style.transform = 'translateY(-15px) scale(1.03)';
               });
               
               card.addEventListener('mouseleave', function() {
-                  this.style.transform = 'translateY(0) scale(1)';
+                  this.style.transform = '';
               });
           });
-
-          // Add click effect to price items
-          const priceItems = document.querySelectorAll('.price-item');
-          priceItems.forEach(item => {
-              item.addEventListener('click', function() {
-                  this.style.background = 'linear-gradient(90deg, #e50914, #b8070f)';
-                  this.style.color = 'white';
+          
+          // Add click effects to buttons
+          const buttons = document.querySelectorAll('.telegram-btn, .copy-btn');
+          buttons.forEach(button => {
+              button.addEventListener('click', function(e) {
+                  const ripple = document.createElement('span');
+                  const rect = this.getBoundingClientRect();
+                  const size = Math.max(rect.width, rect.height);
+                  const x = e.clientX - rect.left - size / 2;
+                  const y = e.clientY - rect.top - size / 2;
+                  
+                  ripple.style.width = ripple.style.height = size + 'px';
+                  ripple.style.left = x + 'px';
+                  ripple.style.top = y + 'px';
+                  ripple.style.position = 'absolute';
+                  ripple.style.borderRadius = '50%';
+                  ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                  ripple.style.transform = 'scale(0)';
+                  ripple.style.animation = 'ripple 0.6s linear';
+                  ripple.style.pointerEvents = 'none';
+                  
+                  this.style.position = 'relative';
+                  this.style.overflow = 'hidden';
+                  this.appendChild(ripple);
+                  
                   setTimeout(() => {
-                      this.style.background = 'linear-gradient(90deg, #f8f9fa, #e9ecef)';
-                      this.style.color = '#333';
-                  }, 200);
+                      ripple.remove();
+                  }, 600);
               });
+          });
+          
+          // Add floating animation to FAB
+          const fab = document.querySelector('.fab');
+          let fabAnimation = true;
+          setInterval(() => {
+              if (fabAnimation) {
+                  fab.style.transform = 'translateY(-5px) scale(1.05)';
+              } else {
+                  fab.style.transform = 'translateY(0px) scale(1)';
+              }
+              fabAnimation = !fabAnimation;
+          }, 2000);
+          
+          // Add scroll effects
+          window.addEventListener('scroll', function() {
+              const scrolled = window.pageYOffset;
+              const parallax = document.querySelector('.particles');
+              const speed = scrolled * 0.5;
+              parallax.style.transform = `translateY(${speed}px)`;
+              
+              // Show/hide FAB based on scroll position
+              if (scrolled > 300) {
+                  fab.style.opacity = '1';
+                  fab.style.pointerEvents = 'auto';
+              } else {
+                  fab.style.opacity = '0.7';
+              }
           });
       });
+
+      // Add CSS animations
+      const style = document.createElement('style');
+      style.textContent = `
+          @keyframes slideIn {
+              from {
+                  transform: translateX(100%);
+                  opacity: 0;
+              }
+              to {
+                  transform: translateX(0);
+                  opacity: 1;
+              }
+          }
+          
+          @keyframes ripple {
+              to {
+                  transform: scale(4);
+                  opacity: 0;
+              }
+          }
+          
+          .price-item.selected {
+              border-left: 5px solid #28a745 !important;
+              box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3) !important;
+          }
+          
+          .price-item.selected::before {
+              background: linear-gradient(135deg, #28a745, #20c997) !important;
+              width: 100% !important;
+          }
+          
+          .price-item.selected span {
+              color: white !important;
+          }
+      `;
+      document.head.appendChild(style);
+
+      // Add typing effect to subtitle
+      function typeWriter(element, text, speed = 50) {
+          let i = 0;
+          element.innerHTML = '';
+          function type() {
+              if (i < text.length) {
+                  element.innerHTML += text.charAt(i);
+                  i++;
+                  setTimeout(type, speed);
+              }
+          }
+          type();
+      }
+
+      // Initialize typing effect after loading
+      setTimeout(() => {
+          const subtitle = document.querySelector('.subtitle');
+          const originalText = subtitle.textContent;
+          typeWriter(subtitle, originalText, 30);
+      }, 1500);
+
+      // Add success message for Telegram link
+      document.querySelector('.telegram-btn').addEventListener('click', function(e) {
+          setTimeout(() => {
+              const successMsg = document.createElement('div');
+              successMsg.innerHTML = `
+                  <div style="position: fixed; bottom: 100px; right: 30px; background: linear-gradient(45deg, #0088cc, #00aaff); color: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4); z-index: 10000; animation: slideUp 0.5s ease; max-width: 300px;">
+                      <i class="fab fa-telegram-plane"></i> Opening Telegram...<br>
+                      <small>Don't forget to send payment proof!</small>
+                  </div>
+              `;
+              document.body.appendChild(successMsg);
+              
+              setTimeout(() => {
+                  successMsg.remove();
+              }, 4000);
+          }, 100);
+      });
+
+      // Add slideUp animation
+      const slideUpStyle = document.createElement('style');
+      slideUpStyle.textContent = `
+          @keyframes slideUp {
+              from {
+                  transform: translateY(100%);
+                  opacity: 0;
+              }
+              to {
+                  transform: translateY(0);
+                  opacity: 1;
+              }
+          }
+      `;
+      document.head.appendChild(slideUpStyle);
   </script>
 </body>
 </html>
