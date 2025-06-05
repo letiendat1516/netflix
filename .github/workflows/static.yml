@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>★ NETFLIX Premium Services ★</title>
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          min-height: 100vh;
+          color: #333;
+      }
+
+      .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      .header {
+          text-align: center;
+          margin-bottom: 40px;
+          background: rgba(255, 255, 255, 0.95);
+          padding: 30px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .header h1 {
+          font-size: 2.5em;
+          color: #e50914;
+          margin-bottom: 10px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header .subtitle {
+          font-size: 1.2em;
+          color: #666;
+          font-weight: 300;
+      }
+
+      .main-content {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 30px;
+          margin-bottom: 40px;
+      }
+
+      .card {
+          background: rgba(255, 255, 255, 0.95);
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .card h2 {
+          color: #e50914;
+          margin-bottom: 20px;
+          font-size: 1.8em;
+          border-bottom: 2px solid #e50914;
+          padding-bottom: 10px;
+      }
+
+      .pricing-table {
+          margin: 20px 0;
+      }
+
+      .price-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px;
+          margin: 10px 0;
+          background: linear-gradient(90deg, #f8f9fa, #e9ecef);
+          border-radius: 10px;
+          border-left: 4px solid #e50914;
+          transition: all 0.3s ease;
+      }
+
+      .price-item:hover {
+          background: linear-gradient(90deg, #e9ecef, #dee2e6);
+          transform: translateX(5px);
+      }
+
+      .price-duration {
+          font-weight: 600;
+          color: #333;
+      }
+
+      .price-amount {
+          font-size: 1.3em;
+          font-weight: bold;
+          color: #e50914;
+      }
+
+      .contact-info {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          color: white;
+          text-align: center;
+          padding: 25px;
+          border-radius: 15px;
+          margin: 20px 0;
+      }
+
+      .telegram-btn {
+          display: inline-block;
+          background: #0088cc;
+          color: white;
+          padding: 15px 30px;
+          text-decoration: none;
+          border-radius: 25px;
+          font-weight: bold;
+          margin: 10px;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+      }
+
+      .telegram-btn:hover {
+          background: #006699;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+      }
+
+      .features {
+          background: rgba(255, 255, 255, 0.95);
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          margin: 20px 0;
+      }
+
+      .features h3 {
+          color: #e50914;
+          margin-bottom: 15px;
+          font-size: 1.5em;
+      }
+
+      .feature-list {
+          list-style: none;
+      }
+
+      .feature-list li {
+          padding: 10px 0;
+          border-bottom: 1px solid #eee;
+          position: relative;
+          padding-left: 30px;
+      }
+
+      .feature-list li:before {
+          content: "✓";
+          color: #28a745;
+          font-weight: bold;
+          position: absolute;
+          left: 0;
+          top: 10px;
+      }
+
+      .bulk-offer {
+          background: linear-gradient(135deg, #28a745, #20c997);
+          color: white;
+          padding: 25px;
+          border-radius: 15px;
+          text-align: center;
+          margin: 20px 0;
+          box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+      }
+
+      .bulk-offer h3 {
+          margin-bottom: 15px;
+          font-size: 1.8em;
+      }
+
+      .checker-section {
+          background: linear-gradient(135deg, #fd7e14, #e63946);
+          color: white;
+          padding: 30px;
+          border-radius: 15px;
+          text-align: center;
+          margin: 20px 0;
+          box-shadow: 0 8px 25px rgba(253, 126, 20, 0.3);
+      }
+
+      .checker-section h3 {
+          margin-bottom: 15px;
+          font-size: 2em;
+      }
+
+      .price-highlight {
+          font-size: 2.5em;
+          font-weight: bold;
+          margin: 15px 0;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer {
+          text-align: center;
+          padding: 30px;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 15px;
+          margin-top: 40px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      @media (max-width: 768px) {
+          .main-content {
+              grid-template-columns: 1fr;
+          }
+          
+          .header h1 {
+              font-size: 2em;
+          }
+          
+          .card {
+              padding: 20px;
+          }
+      }
+
+      .warning {
+          background: #fff3cd;
+          border: 1px solid #ffeaa7;
+          color: #856404;
+          padding: 15px;
+          border-radius: 10px;
+          margin: 20px 0;
+          text-align: center;
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+      <div class="header">
+          <h1>★ NETFLIX Premium Account Services ★</h1>
+          <p class="subtitle">Premium Quality • Instant Delivery • 24/7 Support</p>
+      </div>
+
+      <div class="main-content">
+          <div class="card">
+              <h2>🎬 Premium Accounts</h2>
+              <div class="pricing-table">
+                  <div class="price-item">
+                      <span class="price-duration">1 Month</span>
+                      <span class="price-amount">$3</span>
+                  </div>
+                  <div class="price-item">
+                      <span class="price-duration">3 Months</span>
+                      <span class="price-amount">$8</span>
+                  </div>
+                  <div class="price-item">
+                      <span class="price-duration">6 Months</span>
+                      <span class="price-amount">$15</span>
+                  </div>
+                  <div class="price-item">
+                      <span class="price-duration">1 Year</span>
+                      <span class="price-amount">$28</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="card">
+              <h2>🤖 Auto Warranty Bot</h2>
+              <div class="features">
+                  <ul class="feature-list">
+                      <li>Automatic replacement system</li>
+                      <li>No waiting time for replacements</li>
+                      <li>24/7 automated support</li>
+                      <li>Instant account delivery</li>
+                      <li>Premium quality guaranteed</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <div class="contact-info">
+          <h3>📞 Contact Information</h3>
+          <p>Get in touch for instant service</p>
+          <a href="https://t.me/letiendatjqka" class="telegram-btn">
+              📱 Contact on Telegram
+          </a>
+      </div>
+
+      <div class="bulk-offer">
+          <h3>💰 Bulk Purchase Special</h3>
+          <p><strong>Minimum 20 accounts</strong></p>
+          <p><strong>24 Hour Warranty</strong></p>
+          <div class="price-highlight">$0.3 per account</div>
+          <p>Perfect for resellers and businesses</p>
+      </div>
+
+      <div class="checker-section">
+          <h3>🔧 NETFLIX CHECKER TOOL</h3>
+          <p><strong>Selenium Method • Fresh Hits</strong></p>
+          <p>No Captcha Solver Required</p>
+          <p>Full Source Code Included</p>
+          <div class="price-highlight">$300</div>
+          <p>Professional grade checking tool</p>
+      </div>
+
+      <div class="warning">
+          <strong>⚠️ Disclaimer:</strong> This service is for educational and testing purposes only. 
+          Please ensure compliance with Netflix's terms of service and local laws.
+      </div>
+
+      <div class="footer">
+          <h3>🌟 Why Choose Our Service?</h3>
+          <p>✓ Instant Delivery • ✓ 24/7 Support • ✓ Auto Warranty • ✓ Best Prices</p>
+          <p><strong>Trusted by thousands of customers worldwide</strong></p>
+      </div>
+  </div>
+
+  <script>
+      // Add some interactive effects
+      document.addEventListener('DOMContentLoaded', function() {
+          const cards = document.querySelectorAll('.card');
+          
+          cards.forEach(card => {
+              card.addEventListener('mouseenter', function() {
+                  this.style.transform = 'translateY(-10px) scale(1.02)';
+              });
+              
+              card.addEventListener('mouseleave', function() {
+                  this.style.transform = 'translateY(0) scale(1)';
+              });
+          });
+
+          // Add click effect to price items
+          const priceItems = document.querySelectorAll('.price-item');
+          priceItems.forEach(item => {
+              item.addEventListener('click', function() {
+                  this.style.background = 'linear-gradient(90deg, #e50914, #b8070f)';
+                  this.style.color = 'white';
+                  setTimeout(() => {
+                      this.style.background = 'linear-gradient(90deg, #f8f9fa, #e9ecef)';
+                      this.style.color = '#333';
+                  }, 200);
+              });
+          });
+      });
+  </script>
+</body>
+</html>
